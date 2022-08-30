@@ -3,6 +3,7 @@
 namespace Ozdemir\Datatables\DB;
 
 use Ozdemir\Datatables\Query;
+use Ozdemir\Datatables\Column;
 use PDO;
 
 /**
@@ -75,5 +76,16 @@ class SQLite extends DBAdapter
         $query->escapes[':binding_'.(count($query->escapes) + 1)] = $string;
 
         return ':binding_'.count($query->escapes);
+    }
+
+    /**
+     * @param Query $query
+     * @param Column $column
+     * @param $regex
+     * @return string
+     */
+    public function makeRegexString(Query $query, Column $column, string $regex)
+    {
+        return $this->makeLikeString($query, $column, $regex);
     }
 }

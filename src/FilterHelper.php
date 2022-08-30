@@ -55,10 +55,21 @@ class FilterHelper
     }
 
     /**
+     * @return bool
+     */
+    public function isRegexSearchValue(): bool
+    {
+        return $this->column->isRegexSearchValue();
+    }
+
+    /**
      * @return string
      */
     public function defaultFilter(): string
     {
+        if ($this->isRegexSearchValue()) {
+            return $this->db->makeRegexString($this->query, $this->column, $this->searchValue());
+        }
         return $this->db->makeLikeString($this->query, $this->column, $this->searchValue());
     }
 

@@ -76,6 +76,17 @@ abstract class DBAdapter implements DatabaseInterface
     }
 
     /**
+     * @param Query $query
+     * @param Column $column
+     * @param $regex
+     * @return string
+     */
+    public function makeRegexString(Query $query, Column $column, string $regex)
+    {
+        return $column->name.' REGEXP '.$this->escape($regex, $query);
+    }
+
+    /**
      * @param array $o
      * @return string
      */

@@ -62,7 +62,7 @@ class Column
         $this->name = $name;
         $this->attr['searchable'] = false;
         $this->attr['orderable'] = false;
-        $this->attr['search'] = ['value' => ''];
+        $this->attr['search'] = ['value' => '', 'regex' => false];
     }
 
     /**
@@ -127,5 +127,13 @@ class Column
     public function searchValue(): string
     {
         return $this->attr['search']['value'] ?? '';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRegexSearchValue(): bool
+    {
+        return $this->attr['search']['regex'] ?? false;
     }
 }
