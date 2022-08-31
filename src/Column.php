@@ -134,6 +134,6 @@ class Column
      */
     public function isRegexSearchValue(): bool
     {
-        return $this->attr['search']['regex'] ?? false;
+        return isset($this->attr['search']['regex']) && $this->attr['search']['regex'] === 'true';
     }
 }
