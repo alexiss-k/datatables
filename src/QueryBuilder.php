@@ -290,7 +290,11 @@ class QueryBuilder
             $id = $data['sort'] ?? $data['_'] ?? $data;
 
             if ($this->columns->visible()->isExists($id)) {
-                $o[] = $this->columns->visible()->get($id)->name.' '.$order['dir'];
+                if (isset($this->options->columns()[$order['column']]['type']) && $this->options->columns()[$order['column']]['type'] == 'string_as_num') {
+                    $o[] = 'CAST(' . $this->columns->visible()->get($id)->name . ' AS UNSIGNED INTEGER) ' . $order['dir'];
+                } else {
+                    $o[] = $this->columns->visible()->get($id)->name.' '.$order['dir'];
+                }
             }
         }
 
